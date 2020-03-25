@@ -31,8 +31,8 @@ def covid_statewise(data_dict):
 
 def covid_statewise_table(data_dict):
 	d = covid_statewise(data_dict)
-	html = """<table border=1>
-	<tr>
+	html = """<table class="tableu">
+	<tr class="tableu-head">
 		<th>State</th>
 		<th>Active</th>
 		<th>Confirmed</th>
@@ -41,7 +41,7 @@ def covid_statewise_table(data_dict):
 	</tr>\n"""
 	for s in range(1, len(d)):
 		html += "\t<tr>\n"
-		html += """\t\t<td>{st}</td>\n\t\t<td>{ac}</td>\n\t\t<td>{cf}</td>\n\t\t<td>{dt}</td>\n\t\t<td>{rc}</td>\n""".format(st=d[s]['state'],
+		html += """\t\t<td class="states">{st}</td>\n\t\t<td class="nums">{ac}</td>\n\t\t<td class="nums">{cf}</td>\n\t\t<td class="nums">{dt}</td>\n\t\t<td class="nums">{rc}</td>\n""".format(st=d[s]['state'],
 														ac=d[s]['active'],
 														cf=d[s]['confirmed'],
 														dt=d[s]['deaths'],
