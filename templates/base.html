@@ -5,25 +5,113 @@
 		<meta charset="utf-8">
  		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<style>
+		* {
+			box-sizing: border-box;
+		}
+		body {
+			font-family: "Open Sans";
+			/*background: #2c3e50;
+			color: #ecf0f1;*/
+			line-height: 1.618em;
+		}
+		.wrapper {
+			width: 100%;
+			margin: 0 auto;
+		}
+		.tabs {
+			position: relative;
+			margin-top: 5px;
+			background: #1abc9c;
+			height: 14.75rem;
+		}
+		.tabs::before,
+		.tabs::after {
+			content: "";
+			display: table;
+		}
+		.tabs::after {
+			clear: both;
+		}
+		.tab {
+			float: left;
+		}
+		.tab-switch {
+			display: none;
+		}
+		.tab-label {
+			position: relative;
+			display: block;
+			line-height: 2.75em;
+			height: 3em;
+			padding: 0 1.618em;
+			background: #1abc9c;
+			border-right: 0.125rem solid #16a085;
+			color: #fff;
+			cursor: pointer;
+			top: 0;
+			transition: all 0.25s;
+		}
+		.tab-label:hover {
+			top: -0.25rem;
+			transition: top 0.25s;
+		}
+		.tab-content {
+			width: 100%;
+			height: 12rem;
+			position: absolute;
+			z-index: 1;
+			top: 2.75em;
+			left: 0;
+			padding: 1.618rem;
+			background: #fff;
+			color: #2c3e50;
+			border-bottom: 0.25rem solid #bdc3c7;
+			opacity: 0;
+			transition: all 0.35s;
+		}
+		.tab-switch:checked + .tab-label {
+			background: #fff;
+			color: #2c3e50;
+			border-bottom: 0;
+			border-right: 0.125rem solid #fff;
+			transition: all 0.35s;
+			z-index: 1;
+			top: -0.0625rem;
+		}
+		.tab-switch:checked + label + .tab-content {
+			z-index: 2;
+			opacity: 1;
+			transition: all 0.35s;
+		}
+		</style>
 	</head>
 	<body>
 	<div class="wrapper">
 		<div class="tabs">
 			<div class="tab">
 				<input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
-				<label for="tab-1" class="tab-label">Tab One</label>
-				<div class="tab-content">Tab 1 Content</div>
+				<label for="tab-1" class="tab-label">{% block tab_home_label %}{% endblock tab_home_label %}</label>
+				<div class="tab-content">
+				{% block tab_home %}
+				{% endblock tab_home %}
+				</div>
 			</div>
 			<div class="tab">
 				<input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
-				<label for="tab-2" class="tab-label">Tab Two</label>
-				<div class="tab-content">Tab 2 content</div>
+				<label for="tab-2" class="tab-label">{% block tab_about_label %}{% endblock tab_about_label %}</label>
+				<div class="tab-content">
+				{% block tab_about %}
+				{% endblock tab_about %}
+				</div>
 			</div>
+			<!--
 			<div class="tab">
 				<input type="radio" name="css-tabs" id="tab-3" class="tab-switch">
 				<label for="tab-3" class="tab-label">Tab Three</label>
 				<div class="tab-content">Tab 3 Content</div>
 			</div>
+			-->
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
