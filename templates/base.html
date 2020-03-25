@@ -5,16 +5,79 @@
 		<meta charset="utf-8">
  		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<script>
+			window.console = window.console || function(t) {};
+		</script>
+		<script>
+			if (document.location.search.match(/type=embed/gi)) {
+				window.parent.postMessage("resize", "*");
+			}
+		</script>
+		<style>
+		body {
+			padding: 10px;
+		}
+
+		#exTab1 .tab-content {
+			color : white;
+			background-color: #428bca;
+			padding : 5px 15px;
+		}
+
+		#exTab2 h3 {
+			color : white;
+			background-color: #428bca;
+			padding : 5px 15px;
+		}
+
+		/* remove border radius for the tab */
+		#exTab1 .nav-pills > li > a {
+			border-radius: 0;
+		}
+
+		/* change border radius for the tab , apply corners on top*/
+
+		#exTab3 .nav-pills > li > a {
+			border-radius: 4px 4px 0 0;
+		}
+
+		#exTab3 .tab-content {
+			color : white;
+			background-color: #428bca;
+			padding: 5px 15px;
+		}
+		</style>
 	</head>
 	<body>
-	
-	<div class="container">
-	<!-- MAIN -->
-	{% block content %}
-	
-	{% endblock content %}
-	</div>
+	<div id="exTab1" class="container">
+		<ul class="nav nav-pills">
+			<li class="active">
+				<a href="#main-content" data-toggle="tab">Novel Coronavirus 2019 Informatics</a>
+			</li>
+			<li>
+				<a href="#about" data-toggle="tab">About</a>
+			</li>
+			<!--<li>
+				<a href="#3a" data-toggle="tab">Applying clearfix</a>
+			</li>
+			<li>
+				<a href="#4a" data-toggle="tab">Background color</a>
+			</li>-->
+		</ul>
+		<div class="tab-content clearfix">
+		<!-- MAIN -->
+			<div class="tab-pane active" id="main-content">
+				{% block content %}
 
+				{% endblock content %}
+			</div>
+			<div class="tab-pane" id="about">
+				{% block about %}
+
+				{% endblock about %}
+			</div>
+		</div>
+	</div>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
