@@ -10,7 +10,7 @@
 			box-sizing: border-box;
 		}
 		body {
-			font-family: "Open Sans";
+			/*font-family: "Open Sans";*/
 			/*background: #2c3e50;
 			color: #ecf0f1;*/
 			line-height: 1.618em;
@@ -21,8 +21,8 @@
 		}
 		.tabs {
 			position: relative;
-			margin-top: 5px;
-			background: #1abc9c;
+			margin: 0;
+			background: #343a40;
 			height: 14.75rem;
 		}
 		.tabs::before,
@@ -45,7 +45,7 @@
 			line-height: 2.75em;
 			height: 3em;
 			padding: 0 1.618em;
-			background: #1abc9c;
+			background: #343a40;
 			border-right: 0.125rem solid #16a085;
 			color: #fff;
 			cursor: pointer;
@@ -58,7 +58,8 @@
 		}
 		.tab-content {
 			width: 100%;
-			height: 12rem;
+			min-height: 12rem;
+			height: auto;
 			position: absolute;
 			z-index: 1;
 			top: 2.75em;
@@ -84,9 +85,18 @@
 			opacity: 1;
 			transition: all 0.35s;
 		}
+		{% block style %}
+		{% endblock style %}
 		</style>
 	</head>
 	<body>
+	<!-- Image and text -->
+	<nav class="navbar navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">
+			<img src="https://www.groots.in/images/favicon192x192.png" style="background-color: white; border-radius: 5px;"  width="30" height="30" class="d-inline-block align-top" alt="">
+			Groots CoViD-19 Dashboard
+		</a>
+	</nav>
 	<div class="wrapper">
 		<div class="tabs">
 			<div class="tab">

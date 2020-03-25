@@ -3,11 +3,34 @@
 	Groots' Coronavirus Dashboard
 {% endblock title %}
 
+{% block style %}
+.tableu {
+  border: 1px solid #343a40;
+  box-shadow: 0px 0px 10px 2px grey;
+}
+.tableu-head {
+  background-color: #343a40;
+  color: #ffffff;
+  height: 11px;
+}
+.tableu-head th {
+  padding-left: 13px;
+  padding-right: 10px;
+}
+.tableu td {
+  padding: 3px;
+}
+{% endblock style %}
+
 {% block tab_home_label %}Informatics{% endblock tab_home_label %}
 {% block tab_home %}
 <center>
 	<h1>INFORMATICS</h1>
 </center>
+<br><br>
+{% autoescape off %}
+{{ data_table }}
+{% endautoescape %}
 {% endblock tab_home %}
 
 {% block tab_about_label %}About Initiative{% endblock tab_about_label %}
