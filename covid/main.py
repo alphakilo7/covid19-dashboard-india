@@ -81,17 +81,13 @@ def covid_statewise_graph(out='dict'):
 
 def covid_statewise_graph_active():
 	sna = covid_statewise_graph('df')
-<<<<<<< HEAD
-	sna = sna[['state', 'active']]
-	plt.bar(sna.state, sna.active)
-	plt.xticks(rotation=45)
-
-	return covid_plot_to_b64(plt)
-=======
 	sna = sna[['state', 'active']].to_dict('list')
+	sna['state'] = list(reversed(sna['state']))
+	sna['active'] = list(reversed(sna['active']))
 
-	return sna
->>>>>>> d242950f7cac6f9f25ed390869d69af6254d8410
+	print(sna)
+
+#	return sna
 
 
 def covid_statewise_graph_confirmed():
@@ -110,11 +106,7 @@ def covid_statewise_graph_deaths():
 
 def covid_statewise_graph_recovered():
 	snr = covid_statewise_graph('df')
-<<<<<<< HEAD
-	snr = snr[['state', 'recovered']]
-=======
 	snr = snr[['state', 'recovered']].to_dict('list')
->>>>>>> d242950f7cac6f9f25ed390869d69af6254d8410
 
 	return snr
 
