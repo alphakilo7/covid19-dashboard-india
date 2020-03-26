@@ -56,14 +56,14 @@ def covid_statewise_table(data_dict):
 
 
 def covid_plot_to_b64(plt_fig):
-        fig = plt_fig.gcf()
-        buf = io.BytesIO()
-        fig.savefig(buf, format='png')
-        buf.seek(0)
-        ustr = base64.b64encode(buf.read())
-        uri = urllib.parse.quote(ustr)
+	fig = plt_fig.gcf()
+	buf = io.BytesIO()
+	fig.savefig(buf, format='png')
+	buf.seek(0)
+	ustr = base64.b64encode(buf.read())
+	uri = urllib.parse.quote(ustr)
 
-        return "data:image/png;base64," + uri
+	return "data:image/png;base64," + uri
 
 
 def covid_statewise_graph(out='dict'):
@@ -84,7 +84,7 @@ def covid_statewise_graph_active():
 	sna = sna[['state', 'active']]
 	plt.bar(sna.state, sna.active)
 	plt.xticks(rotation=45)
-
+	
 	return covid_plot_to_b64(plt)
 
 
@@ -98,18 +98,18 @@ def covid_statewise_graph_confirmed():
 
 
 def covid_statewise_graph_deaths():
-        sna = covid_statewise_graph('df')
-        sna = sna[['state', 'deaths']]
-        plt.bar(sna.state, sna.deaths)
+	sna = covid_statewise_graph('df')
+	sna = sna[['state', 'deaths']]
+	plt.bar(sna.state, sna.deaths)
 	plt.xticks(rotation=45)
 
 	return covid_plot_to_b64(plt)
 
 
 def covid_statewise_graph_recovered():
-        sna = covid_statewise_graph('df')
-        sna = sna[['state', 'recovered']]
-        plt.bar(sna.state, sna.recovered)
+	sna = covid_statewise_graph('df')
+	sna = sna[['state', 'recovered']]
+	plt.bar(sna.state, sna.recovered)
 	plt.xticks(rotation=45)
 
 	return covid_plot_to_b64(plt)
