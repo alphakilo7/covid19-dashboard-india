@@ -2,8 +2,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import urllib3 as ulib
+import io
 import json
+import urllib
+import base64
+import urllib3 as ulib
 
 
 def covid_get_json():
@@ -63,26 +66,29 @@ def covid_plot_to_b64(plt_fig):
         return "data:image/png;base64," + uri
 
 
-def covid_statewise_graph():
+def covid_statewise_graph(out='dict'):
 	mf = covid_get_json()
 	sf = covid_statewise(mf)
 	sf = pd.DataFrame(sf)
 	xf = sf.drop([0], axis=0)
 	xf = xf[xf.active != '0']
 	xf = xf[['state', 'active', 'confirmed', 'deaths', 'recovered']]
+	if out == 'dict':
+		return xf.to_dict('list')
+	elif out == 'df':
+		return xf
 
-	return xf.to_dict('list')
 
-
-def covid_swgr_active():
-	sna = covid_statewise_graph()
+def covid_statewise_graph_active():
+	sna = covid_statewise_graph('df')
 	sna = sna[['state', 'active']]
-	print(sna)
+	plt.bar(sna.state, sna.active)
+	return covid_plot_to_b64(plt)
 
 
 def run():
 	"""Script Runner"""
-	covid_swgr_active()
+	print(covid_statewise_graph_active())
 
 
 if __name__ == "__main__":
