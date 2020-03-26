@@ -83,6 +83,7 @@ def covid_statewise_graph_active():
 	sna = covid_statewise_graph('df')
 	sna = sna[['state', 'active']]
 	plt.bar(sna.state, sna.active)
+	plt.xticks(rotation=45)
 
 	return covid_plot_to_b64(plt)
 
@@ -91,6 +92,7 @@ def covid_statewise_graph_confirmed():
 	sna = covid_statewise_graph('df')
 	sna = sna[['state', 'confirmed']]
 	plt.bar(sna.state, sna.confirmed)
+	plt.xticks(rotation=45)
 
 	return covid_plot_to_b64(plt)
 
@@ -99,6 +101,7 @@ def covid_statewise_graph_deaths():
         sna = covid_statewise_graph('df')
         sna = sna[['state', 'deaths']]
         plt.bar(sna.state, sna.deaths)
+	plt.xticks(rotation=45)
 
 	return covid_plot_to_b64(plt)
 
@@ -107,6 +110,7 @@ def covid_statewise_graph_recovered():
         sna = covid_statewise_graph('df')
         sna = sna[['state', 'recovered']]
         plt.bar(sna.state, sna.recovered)
+	plt.xticks(rotation=45)
 
 	return covid_plot_to_b64(plt)
 
