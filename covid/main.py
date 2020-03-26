@@ -85,7 +85,8 @@ def covid_statewise_graph_active():
 	sna['state'] = list(reversed(sna['state']))
 	sna['active'] = list(reversed(sna['active']))
 
-	print(sna)
+#	print(sna)
+	return sna
 
 #	return sna
 
@@ -113,7 +114,7 @@ def covid_statewise_graph_recovered():
 	snr = snr[['state', 'recovered']].to_dict('list')
 	snr['state'] = list(reversed(snr['state']))
 	snr['active'] = list(reversed(snr['active']))
-	
+
 	return snr
 
 

@@ -44,11 +44,53 @@
 {% block tab_about %}
 <center>
 	<h1>ABOUT INITIATIVE</h1>
-	{{ plot_data }}
+	<div id="chart-container" style="width: 700px; height: 500px;">
+		<canvas id="sample"></canvas>
+	</div>
 </center>
 {% endblock tab_about %}
 
 {% block script %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+// ChartJS Space
+{% autoescape off %}
+var states = {{ states }};
+var active = {{ active }};
+{% endautoescape %}
+var date = new Date()
+var config = {
+	type: 'line',
+	data: {
+		labels: states,
+		datasets: [{
+			label: 'Active cases',
+			backgroundColor: 'red',
+			data: active,
+			fill: false,
+		}]
+	},
+	options: {
+		responsive: true,
+		title: {
+			display: true,
+			text: 'Statewise Active Cases on ' + date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear()
+		},
+		scales: {
+			yAxes: [{
+				ticks: {
+					fontSize: 16
+				}
+			}]
+		}
+	}
+};
+
+window.onload = function() {
+	var ctx = document.getElementById('sample').getContext('2d');
+	window.myLine = new Chart(ctx, config);
+}
+</script>
 <script>
 	$('.tableu').addClass('table-responsive');
 </script>
