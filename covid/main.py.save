@@ -2,11 +2,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import io
-import json
-import urllib
-import base64
 import urllib3 as ulib
+import json
 
 
 def covid_get_json():
@@ -55,63 +52,31 @@ def covid_statewise_table(data_dict):
 	return html
 
 
-def covid_plot_to_b64(plt_fig):
-	fig = plt_fig.gcf()
-	buf = io.BytesIO()
-	fig.savefig(buf, format='png')
-	buf.seek(0)
-	ustr = base64.b64encode(buf.read())
-	uri = urllib.parse.quote(ustr)
-
-	return "data:image/png;base64," + uri
-
-
-def covid_statewise_graph(out='dict'):
+def covid_statewise_graph():
 	mf = covid_get_json()
 	sf = covid_statewise(mf)
 	sf = pd.DataFrame(sf)
 	xf = sf.drop([0], axis=0)
 	xf = xf[xf.active != '0']
 	xf = xf[['state', 'active', 'confirmed', 'deaths', 'recovered']]
-	if out == 'dict':
-		return xf.to_dict('list')
-	elif out == 'df':
-		return xf
-
-
-def covid_statewise_graph_active():
-	sna = covid_statewise_graph('df')
-	sna = sna[['state', 'active']]
-	plt.bar(sna.state, sna.active)
-	plt.xticks(rotation=45)
-
-	return covid_plot_to_b64(plt)
-
-
-def covid_statewise_graph_confirmed():
-	snc = covid_statewise_graph('df')
-	snc = snc[['state', 'confirmed']].to_dict('list')
-
-	return snc
-
-
-def covid_statewise_graph_deaths():
-	snd = covid_statewise_graph('df')
-	snd = snd[['state', 'deaths']].to_dict('list')
-
-	return snd
-
-
-def covid_statewise_graph_recovered():
-	snr = covid_statewise_graph('df')
-	snr = snr[['state', 'recovered']]
-
-	return snr
+	xf.reset_index(drop=True, inplace=True)
+	return xf.to_dict()
 
 
 def run():
 	"""Script Runner"""
-	print(covid_statewise_graph_active())
+	# Keys
+	#	:state:
+	#	:cofirmed:
+	#	:deaths:
+	#	:recovered:
+	#	:active:
+
+	md = covid_get_json()
+	sd = covid_statewise(md)
+	sf = covid_statewise_graph()
+#	ht = covid_statewise_table(sd)
+#	print(ht)
 
 
 if __name__ == "__main__":
