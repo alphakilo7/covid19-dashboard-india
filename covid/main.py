@@ -93,6 +93,8 @@ def covid_statewise_graph_active():
 def covid_statewise_graph_confirmed():
 	snc = covid_statewise_graph('df')
 	snc = snc[['state', 'confirmed']].to_dict('list')
+	snc['state'] = list(reversed(snc['state']))
+	snc['active'] = list(reversed(snc['active']))
 
 	return snc
 
@@ -100,6 +102,8 @@ def covid_statewise_graph_confirmed():
 def covid_statewise_graph_deaths():
 	snd = covid_statewise_graph('df')
 	snd = snd[['state', 'deaths']].to_dict('list')
+	snd['state'] = list(reversed(snd['state']))
+	snd['active'] = list(reversed(snd['active']))
 
 	return snd
 
@@ -107,7 +111,9 @@ def covid_statewise_graph_deaths():
 def covid_statewise_graph_recovered():
 	snr = covid_statewise_graph('df')
 	snr = snr[['state', 'recovered']].to_dict('list')
-
+	snr['state'] = list(reversed(snr['state']))
+	snr['active'] = list(reversed(snr['active']))
+	
 	return snr
 
 
