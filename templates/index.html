@@ -1,12 +1,20 @@
-{% extends 'base.html' %}
-{% block title %}
+{% extends 'base.html' %} {% block title %}
 	Groots' Coronavirus Dashboard
 {% endblock title %}
 
 {% block style %}
-.tableu {
-	border: 1px solid #343a40;
-	box-shadow: 0px 0px 10px 2px grey;
+@media screen and (min-width: 400px) {
+	.tableu {
+		border: 1px solid #343a40;
+		box-shadow: 0px 0px 10px 2px grey;
+	}
+}
+@media screen and (min-width: 800px) {
+	.tableu {
+		border: 1px solid #343a40;
+		box-shadow: 0 0 10px 2px grey;
+		width: 41%;
+	}
 }
 .tableu-head {
 	background-color: #343a40;
@@ -36,5 +44,12 @@
 {% block tab_about %}
 <center>
 	<h1>ABOUT INITIATIVE</h1>
+	{{ plot_data }}
 </center>
 {% endblock tab_about %}
+
+{% block script %}
+<script>
+	$('.tableu').addClass('table-responsive');
+</script>
+{% endblock script %}

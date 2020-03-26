@@ -52,20 +52,37 @@ def covid_statewise_table(data_dict):
 	return html
 
 
+def covid_plot_to_b64(plt_fig):
+        fig = plt_fig.gcf()
+        buf = io.BytesIO()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
+        ustr = base64.b64encode(buf.read())
+        uri = urllib.parse.quote(ustr)
+
+        return "data:image/png;base64," + uri
+
+
+def covid_statewise_graph():
+	mf = covid_get_json()
+	sf = covid_statewise(mf)
+	sf = pd.DataFrame(sf)
+	xf = sf.drop([0], axis=0)
+	xf = xf[xf.active != '0']
+	xf = xf[['state', 'active', 'confirmed', 'deaths', 'recovered']]
+
+	return xf.to_dict('list')
+
+
+def covid_swgr_active():
+	sna = covid_statewise_graph()
+	sna = sna[['state', 'active']]
+	print(sna)
+
+
 def run():
 	"""Script Runner"""
-	# Keys
-	#	:state:
-	#	:cofirmed:
-	#	:deaths:
-	#	:recovered:
-	#	:active:
-
-	md = covid_get_json()
-	sd = covid_statewise(md)
-	print(sd)
-#	ht = covid_statewise_table(sd)
-#	print(ht)
+	covid_swgr_active()
 
 
 if __name__ == "__main__":
