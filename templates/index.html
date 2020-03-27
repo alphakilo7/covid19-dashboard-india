@@ -44,7 +44,7 @@
 {% block tab_about %}
 <center>
 	<h1>ABOUT INITIATIVE</h1>
-	<div id="chart-container" style="width: 700px; height: 500px;">
+	<div id="chart-container" style="width: 600px; height: 500px;">
 		<canvas id="sample"></canvas>
 	</div>
 </center>
@@ -60,7 +60,7 @@ var active = {{ active }};
 {% endautoescape %}
 var date = new Date()
 var config = {
-	type: 'line',
+	type: 'bar',
 	data: {
 		labels: states,
 		datasets: [{
