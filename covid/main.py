@@ -73,6 +73,7 @@ def covid_statewise_graph(out='dict'):
 	xf = sf.drop([0], axis=0)
 	xf = xf[xf.active != '0']
 	xf = xf[['state', 'active', 'confirmed', 'deaths', 'recovered']]
+	xf['state'][:] = [x[:10] + "." if len(x) > 12 else x for x in xf['state']]
 	if out == 'dict':
 		return xf.to_dict('list')
 	elif out == 'df':
@@ -85,17 +86,14 @@ def covid_statewise_graph_active():
 	sna['state'] = list(reversed(sna['state']))
 	sna['active'] = list(reversed(sna['active']))
 
-#	print(sna)
 	return sna
-
-#	return sna
 
 
 def covid_statewise_graph_confirmed():
 	snc = covid_statewise_graph('df')
 	snc = snc[['state', 'confirmed']].to_dict('list')
 	snc['state'] = list(reversed(snc['state']))
-	snc['active'] = list(reversed(snc['active']))
+	snc['confirmed'] = list(reversed(snc['confirmed']))
 
 	return snc
 
@@ -104,7 +102,7 @@ def covid_statewise_graph_deaths():
 	snd = covid_statewise_graph('df')
 	snd = snd[['state', 'deaths']].to_dict('list')
 	snd['state'] = list(reversed(snd['state']))
-	snd['active'] = list(reversed(snd['active']))
+	snd['deaths'] = list(reversed(snd['deaths']))
 
 	return snd
 
@@ -113,14 +111,14 @@ def covid_statewise_graph_recovered():
 	snr = covid_statewise_graph('df')
 	snr = snr[['state', 'recovered']].to_dict('list')
 	snr['state'] = list(reversed(snr['state']))
-	snr['active'] = list(reversed(snr['active']))
+	snr['recovered'] = list(reversed(snr['recovered']))
 
 	return snr
 
 
 def run():
 	"""Script Runner"""
-	print(covid_statewise_graph_active())
+	pass
 
 
 if __name__ == "__main__":
