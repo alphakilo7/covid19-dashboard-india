@@ -8,22 +8,6 @@ import urllib
 import base64
 import urllib3 as ulib
 
-"""
-Functions' List
-@ covid_get_json
-@ covid_national*
-@ covid_statewise
-@ covid_statewise_table
-@ covid_plot_to_b64
-@ covid_daily
-@ covid_daily_daily
-@ covid_daily_total
-@ covid_statewise_graph
-@ covid_statewise_graph_active
-@ covid_statewise_graph_confirmed
-@ covid_statewise_graph_recovered
-@ covid_statewise_graph_deaths
-"""
 
 def covid_get_json():
 	"""Fetch CoViD-19 JSON Data from given URL"""
@@ -82,57 +66,6 @@ def covid_plot_to_b64(plt_fig):
 	return "data:image/png;base64," + uri
 
 
-def covid_daily():
-	djson = covid_get_json()
-	daily = djson["cases_time_series"]
-
-	return daily
-
-
-def covid_daily_daily(out='dict'):
-	ddaily = pd.DataFrame(covid_daily())
-	ddaily = ddaily[['date', 'dailyconfirmed', 'dailydeceased', 'dailyrecovered']]
-
-	if out == 'df':
-		return ddaily
-	elif out == 'dict':
-		return ddaily.to_dict('list')
-
-
-def covid_daily_total(out='dict'):
-	dtotal = pd.DataFrame(covid_daily())
-	dtotal = dtotal[['date', 'totalconfirmed', 'totaldeceased', 'totalrecovered']]
-
-	if out == 'df':
-		return dtotal
-	elif out == 'dict':
-		return dtotal.to_dict('list')
-
-
-def covid_daily_dailyc():
-	return covid_daily_daily('df')[['date', 'dailyconfirmed']].to_dict('list')
-
-
-def covid_daily_dailyd():
-        return covid_daily_daily('df')[['date', 'dailydeceased']].to_dict('list')
-
-
-def covid_daily_dailyr():
-        return covid_daily_daily('df')[['date', 'dailyrecovered']].to_dict('list')
-
-
-def covid_daily_totalc():
-	return covid_daily_total('df')[['date', 'totalconfirmed']].to_dict('list')
-
-
-def covid_daily_totald():
-        return covid_daily_total('df')[['date', 'totaldeceased']].to_dict('list')
-
-
-def covid_daily_totalr():
-        return covid_daily_total('df')[['date', 'totalrecovered']].to_dict('list')
-
-
 def covid_statewise_graph(out='dict'):
 	mf = covid_get_json()
 	sf = covid_statewise(mf)
@@ -140,7 +73,7 @@ def covid_statewise_graph(out='dict'):
 	xf = sf.drop([0], axis=0)
 	xf = xf[xf.active != '0']
 	xf = xf[['state', 'active', 'confirmed', 'deaths', 'recovered']]
-	xf['state'][:] = [x[:10] + "." if len(x) > 12 else x for x in xf['state']]
+	xf['state'][:] = [x[:12] for x in xf['state'] if]
 	if out == 'dict':
 		return xf.to_dict('list')
 	elif out == 'df':
@@ -160,7 +93,7 @@ def covid_statewise_graph_confirmed():
 	snc = covid_statewise_graph('df')
 	snc = snc[['state', 'confirmed']].to_dict('list')
 	snc['state'] = list(reversed(snc['state']))
-	snc['confirmed'] = list(reversed(snc['confirmed']))
+	snc['active'] = list(reversed(snc['active']))
 
 	return snc
 
@@ -169,7 +102,7 @@ def covid_statewise_graph_deaths():
 	snd = covid_statewise_graph('df')
 	snd = snd[['state', 'deaths']].to_dict('list')
 	snd['state'] = list(reversed(snd['state']))
-	snd['deaths'] = list(reversed(snd['deaths']))
+	snd['active'] = list(reversed(snd['active']))
 
 	return snd
 
@@ -178,26 +111,14 @@ def covid_statewise_graph_recovered():
 	snr = covid_statewise_graph('df')
 	snr = snr[['state', 'recovered']].to_dict('list')
 	snr['state'] = list(reversed(snr['state']))
-	snr['recovered'] = list(reversed(snr['recovered']))
+	snr['active'] = list(reversed(snr['active']))
 
 	return snr
 
 
 def run():
 	"""Script Runner"""
-	print(covid_daily_dailyc())
-	print('-' * 60)
-	print(covid_daily_dailyd())
-	print('-' * 60)
-	print(covid_daily_dailyr())
-	print('-' * 60)
-
-	print(covid_daily_totalc())
-	print('-' * 60)
-	print(covid_daily_totald())
-	print('-' * 60)
-	print(covid_daily_totalr())
-	print('-' * 60)
+	print(covid_statewise_graph_active())
 
 
 if __name__ == "__main__":
