@@ -25,13 +25,6 @@ def covid_national(data_dict):
 	print(nat)
 
 
-def covid_daily():
-	djson = covid_get_json()
-	daily = djson["cases_time_series"]
-
-	print(daily)
-
-
 def covid_statewise(data_dict):
 	"""Extract Indian Statewise Date from `data_dict`"""
 
@@ -71,6 +64,33 @@ def covid_plot_to_b64(plt_fig):
 	uri = urllib.parse.quote(ustr)
 
 	return "data:image/png;base64," + uri
+
+
+def covid_daily():
+	djson = covid_get_json()
+	daily = djson["cases_time_series"]
+
+	return daily
+
+
+def covid_daily_daily(out='dict'):
+	ddaily = pd.DataFrame(covid_daily())
+	ddaily = ddaily[['date', 'dailyconfirmed', 'dailydeceased', 'dailyrecovered']]
+
+	if out == 'df':
+		return ddaily
+	elif out == 'dict':
+		return ddaily.to_dict('list')
+
+
+def covid_daily_total(out='dict'):
+	dtotal = pd.DataFrame(covid_daily())
+	dtotal = dtotal[['date', 'totalconfirmed', 'totaldeceased', 'totalrecovered']]
+
+	if out == 'df':
+		return dtotal
+	elif out == 'dict':
+		return dtotal.to_dict('list')
 
 
 def covid_statewise_graph(out='dict'):
@@ -125,7 +145,7 @@ def covid_statewise_graph_recovered():
 
 def run():
 	"""Script Runner"""
-	pass
+	covid_daily()
 
 
 if __name__ == "__main__":
