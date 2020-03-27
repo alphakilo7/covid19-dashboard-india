@@ -25,6 +25,13 @@ def covid_national(data_dict):
 	print(nat)
 
 
+def covid_daily():
+	djson = covid_get_json()
+	daily = djson["cases_time_series"]
+
+	print(daily)
+
+
 def covid_statewise(data_dict):
 	"""Extract Indian Statewise Date from `data_dict`"""
 
