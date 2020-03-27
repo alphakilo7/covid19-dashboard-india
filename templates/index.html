@@ -51,6 +51,10 @@
 	display: block;
 	width: 100%;
 }
+.nat-count { display: inline-block; }
+#national-data { text-align: center; }
+/*.h2 sub, .h4 sub, .h5 sub { font-size: 14; }*/
+
 {% endblock style %}
 
 {% block tab_home_label %}Informatics{% endblock tab_home_label %}
@@ -59,7 +63,31 @@
 	<h1>INFORMATICS</h1>
 </center>
 <br><br>
-<div id="national-data">
+<div id="national-data" class="my-4">
+	<div class="row">
+	<div id="nat-act" class="nat-count text-danger col">
+		<span class="h4">Active</span>
+		<span class="h2">{{ nta }}<sub>Total</sub></span>
+		<span class="h5">{{ nda }}<sub>Today</sub></span>
+	</div>
+	<div id="nat-cnf" class="nat-count text-warning col">
+                <span class="h4">Confirmed</span>
+		<span class="h2">{{ ntc }}<sub>Total</sub></span>
+                <span class="h5">{{ ndc }}<sub>Today</sub></span>
+	</div>
+	</div>
+	<div class="row">
+	<div id="nat-dth" class="nat-count text-secondary col">
+                <span class="h4">Deceased</span>
+                <span class="h2">{{ ntd }}<sub>Total</sub></span>
+                <span class="h5">{{ ndd }}<sub>Today</sub></span>
+        </div>
+	<div id="nat-rcv" class="nat-count text-success col">
+                <span class="h4">Recovered</span>
+                <span class="h2">{{ ntr }}<sub>Total</sub></span>
+                <span class="h5">{{ ndr }}<sub>Today</sub></span>
+        </div>
+	</div>
 </div>
 {% autoescape off %}
 {{ data_table }}
@@ -74,6 +102,8 @@
 <div class="plot-md my-5">
         <canvas id="plot-daily-rcv"></canvas>
 </div>
+<div class="plot-md my-5">
+	<canvas id="plot-statewise"></canvas>
 </div>
 {% endblock tab_home %}
 
@@ -108,25 +138,32 @@ var config_dtc = {
 	type:'line',
 	data:{labels:date,datasets:[{label:'Confirmed Cases',backgroundColor: 'red',borderColor: 'red',data: dtc,fill: false,}]},
 	options:{responsive: true,title:{display: true,text:'Confirmed Cases',},scales:{xAxes:[{ticks:{fontSize:8}}]},elements:{point:{radius:0}}}
-}
+};
 var config_dtd = {
 	type:'line',
 	data:{labels:date,datasets:[{label:'Deceased Cases',backgroundColor:'grey',borderColor:'grey',data:dtd,fill:false,}]},
 	options:{responsive: true,title:{display: true,text:'Deceased Cases',},scales:{xAxes:[{ticks:{fontSize:8}}]},elements:{point:{radius:0}}}
-}
+};
 var config_dtr = {
 	type:'line',
 	data:{labels:date,datasets:[{label:'Recovered Cases',backgroundColor: 'green',borderColor: 'green',data:dtr,fill: false,}]},
 	options:{responsive: true,title:{display: true,text:'Recovered Cases',},scales:{xAxes:[{ticks:{fontSize:8}}]},elements:{point:{radius:0}}}
-}
+};
+var config_sw_act={
+	type:"bar",
+	data:{labels:states,datasets:[{label:"Active cases",backgroundColor:"red",data:active,fill:!1}]},
+	options:{responsive:!0,title:{display:!0,text:"Statewise Active Cases as on "+dat.getDate()+"-"+dat.getMonth()+"-"+dat.getFullYear()},scales:{xAxes:[{ticks:{fontSize:10}}]}}
+};
 
 window.onload = function() {
 	var chart_dtc = document.getElementById('plot-daily-cnf').getContext('2d');
 	var chart_dtd = document.getElementById('plot-daily-dth').getContext('2d');
 	var chart_dtr = document.getElementById('plot-daily-rcv').getContext('2d');
+	var chart_sw_act = document.getElementById('plot-statewise').getContext('2d');
 	window.daily_cnf = new Chart(chart_dtc, config_dtc);
 	window.daily_dth = new Chart(chart_dtd, config_dtd);
 	window.daily_rcv = new Chart(chart_dtr, config_dtr);
+	window.statewise = new Chart(chart_sw_act, config_sw_act);
 }
 </script>
 <script>

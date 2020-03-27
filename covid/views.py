@@ -45,6 +45,17 @@ def index(request):
 	dtd = covid_daily_totald()['totaldeceased'][:-1]
 	dtr = covid_daily_totalr()['totalrecovered'][:-1]
 
+	nat_t = covid_national_total(mn)
+	nat_ta = nat_t['active']
+	nat_tc = nat_t['confirmed']
+	nat_td = nat_t['deaths']
+	nat_tr = nat_t['recovered']
+	nat_d = covid_national_today(mn)
+	nat_da = nat_d['active']
+	nat_dc = nat_d['confirmed']
+	nat_dd = nat_d['deaths']
+	nat_dr = nat_d['recovered']
+
 	return render(request, 'index.html', {
 		'data_table': ht,
 		'states': dtst,
@@ -55,4 +66,6 @@ def index(request):
 		'date': date,
 		'ddc': ddc, 'ddd': ddd, 'ddr': ddr,
 		'dtc': dtc, 'dtd': dtd, 'dtr': dtr,
+		'nta': nat_ta, 'ntc': nat_tc, 'ntd': nat_td, 'ntr': nat_tr,
+		'nda': nat_da, 'ndc': nat_dc, 'ndd': nat_dd, 'ndr': nat_dr,
 	})
