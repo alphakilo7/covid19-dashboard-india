@@ -11,26 +11,20 @@ import urllib3 as ulib
 """
 Functions' List
 @ covid_get_json
-@ covid_national_total
-@ covid_national_today
+@ covid_national*
 @ covid_statewise
 @ covid_statewise_table
 @ covid_plot_to_b64
 @ covid_daily
 @ covid_daily_daily
 @ covid_daily_total
-@ covid_daily_dailyc
-@ covid_daily_dailyd
-@ covid_daily_dailyr
-@ covid_daily_totalc
-@ covid_daily_totald
-@ covid_daily_totalr
 @ covid_statewise_graph
 @ covid_statewise_graph_active
 @ covid_statewise_graph_confirmed
 @ covid_statewise_graph_recovered
 @ covid_statewise_graph_deaths
 """
+
 
 def covid_get_json():
 	"""Fetch CoViD-19 JSON Data from given URL"""
@@ -43,13 +37,9 @@ def covid_get_json():
 	return data
 
 
-def covid_national_total(data_dict):
-	data_dict = data_dict['statewise'][0]
-	return dict((k, data_dict[k]) for k in ['active', 'confirmed', 'deaths', 'recovered'] if k in data_dict.keys())
-
-
-def covid_national_today(data_dict):
-	return data_dict['statewise'][0]['delta']
+def covid_national(data_dict):
+	nat = data_dict['statewise'][0]
+	print(nat)
 
 
 def covid_statewise(data_dict):
@@ -120,31 +110,6 @@ def covid_daily_total(out='dict'):
 		return dtotal.to_dict('list')
 
 
-def covid_daily_dailyc():
-	return covid_daily_daily('df')[['date', 'dailyconfirmed']].to_dict('list')
-
-
-def covid_daily_dailyd():
-        return covid_daily_daily('df')[['date', 'dailydeceased']].to_dict('list')
-
-
-def covid_daily_dailyr():
-        return covid_daily_daily('df')[['date', 'dailyrecovered']].to_dict('list')
-
-
-def covid_daily_totalc():
-	return covid_daily_total('df')[['date', 'totalconfirmed']].to_dict('list')
-
-
-def covid_daily_totald():
-        return covid_daily_total('df')[['date', 'totaldeceased']].to_dict('list')
-
-
-
-def covid_daily_totalr():
-        return covid_daily_total('df')[['date', 'totalrecovered']].to_dict('list')
-
-
 def covid_statewise_graph(out='dict'):
 	mf = covid_get_json()
 	sf = covid_statewise(mf)
@@ -196,9 +161,8 @@ def covid_statewise_graph_recovered():
 
 
 def run():
-	"""Test Script Runner"""
-	md = covid_get_json()
-	print(covid_national_today(md))
+	"""Script Runner"""
+	covid_daily()
 
 
 if __name__ == "__main__":
