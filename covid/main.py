@@ -195,10 +195,39 @@ def covid_statewise_graph_recovered():
 	return snr
 
 
+def covid_get_districtwise(get='states'):
+	URL = "https://api.covid19india.org/state_district_wise.json"
+	http = ulib.PoolManager()
+	distw = http.request('GET', URL)
+	data = json.loads(distw.data.decode('utf-8'))
+
+	return data
+
+
+def covid_district_data(state):
+	disd = covid_get_districtwise()
+	df = disd[state]['districtData']
+
+	dist = dict()
+	for ds in df.keys():
+		dist[ds] = df[ds]['confirmed']
+
+	return dist
+
+def covid_get_states():
+	return list(covid_get_districtwise().keys())
+
+def covid_statewise_district():
+	data = dict()
+	for state in covid_get_states():
+		data[state] = covid_district_data(state)
+
+	return data
+
+
 def run():
 	"""Test Script Runner"""
-	md = covid_get_json()
-	print(covid_national_today(md))
+	print(covid_statewise_district())
 
 
 if __name__ == "__main__":

@@ -109,9 +109,7 @@
 
 {% block tab_about_label %}About Initiative{% endblock tab_about_label %}
 {% block tab_about %}
-<center>
-	<h1>ABOUT INITIATIVE</h1>
-</center>
+	<h1>qwertyuiioop</h1>
 {% endblock tab_about %}
 
 {% block script %}
@@ -134,19 +132,19 @@ var dtr = {{ dtr }};
 {% endautoescape %}
 var dat = new Date()
 
-var config_dtc = {
-	type:'line',
-	data:{labels:date,datasets:[{label:'Confirmed Cases',backgroundColor: 'red',borderColor: 'red',data: dtc,fill: false,}]},
+var config_ddc = {
+	type:"line",
+	data:{labels:date,datasets:[{label:'Confirmed Cases',backgroundColor: 'red',borderColor: 'red',data: ddc,fill: false,}]},
 	options:{responsive: true,title:{display: true,text:'Confirmed Cases',},scales:{xAxes:[{ticks:{fontSize:8}}]},elements:{point:{radius:0}}}
 };
-var config_dtd = {
-	type:'line',
-	data:{labels:date,datasets:[{label:'Deceased Cases',backgroundColor:'grey',borderColor:'grey',data:dtd,fill:false,}]},
+var config_ddd = {
+	type:"line",
+	data:{labels:date,datasets:[{label:'Deceased Cases',backgroundColor:'grey',borderColor:'grey',data:ddd,fill:false,}]},
 	options:{responsive: true,title:{display: true,text:'Deceased Cases',},scales:{xAxes:[{ticks:{fontSize:8}}]},elements:{point:{radius:0}}}
 };
-var config_dtr = {
-	type:'line',
-	data:{labels:date,datasets:[{label:'Recovered Cases',backgroundColor: 'green',borderColor: 'green',data:dtr,fill: false,}]},
+var config_ddr = {
+	type:"line",
+	data:{labels:date,datasets:[{label:'Recovered Cases',backgroundColor: 'green',borderColor: 'green',data:ddr,fill: false,}]},
 	options:{responsive: true,title:{display: true,text:'Recovered Cases',},scales:{xAxes:[{ticks:{fontSize:8}}]},elements:{point:{radius:0}}}
 };
 var config_sw_act={
@@ -156,13 +154,13 @@ var config_sw_act={
 };
 
 window.onload = function() {
-	var chart_dtc = document.getElementById('plot-daily-cnf').getContext('2d');
-	var chart_dtd = document.getElementById('plot-daily-dth').getContext('2d');
-	var chart_dtr = document.getElementById('plot-daily-rcv').getContext('2d');
+	var chart_ddc = document.getElementById('plot-daily-cnf').getContext('2d');
+	var chart_ddd = document.getElementById('plot-daily-dth').getContext('2d');
+	var chart_ddr = document.getElementById('plot-daily-rcv').getContext('2d');
 	var chart_sw_act = document.getElementById('plot-statewise').getContext('2d');
-	window.daily_cnf = new Chart(chart_dtc, config_dtc);
-	window.daily_dth = new Chart(chart_dtd, config_dtd);
-	window.daily_rcv = new Chart(chart_dtr, config_dtr);
+	window.daily_cnf = new Chart(chart_ddc, config_ddc);
+	window.daily_dth = new Chart(chart_ddd, config_ddd);
+	window.daily_rcv = new Chart(chart_ddr, config_ddr);
 	window.statewise = new Chart(chart_sw_act, config_sw_act);
 }
 </script>
