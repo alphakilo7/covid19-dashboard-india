@@ -30,6 +30,10 @@ Functions' List
 @ covid_statewise_graph_confirmed
 @ covid_statewise_graph_recovered
 @ covid_statewise_graph_deaths
+@ covid_get_districtwise
+@ covid_district_data
+@ covid_get_states
+@ covid_statewise_district
 """
 
 def covid_get_json():
